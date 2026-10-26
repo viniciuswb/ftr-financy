@@ -1,0 +1,18 @@
+knowledge-base/
+
+# dependencies & builds
+node_modules/
+dist/
+
+# env files (keep the examples)
+.env
+.env.*
+!.env.example
+
+# SQLite database created by Prisma
+*.db
+*.db-journal
+
+# OS / editor
+.DS_Store
+.vscode/
