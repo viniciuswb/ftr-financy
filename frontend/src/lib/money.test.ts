@@ -5,6 +5,7 @@ describe("money", () => {
   it("formats cents as pt-BR currency with a regular space", () => {
     expect(formatCurrency(1284732)).toBe("R$ 12.847,32");
     expect(formatCurrency(0)).toBe("R$ 0,00");
+    expect(formatCurrency(-1000)).toBe("-R$ 10,00");
   });
   it("formats signed amounts", () => {
     expect(formatSignedAmount("INCOME", 34025)).toBe("+ R$ 340,25");
