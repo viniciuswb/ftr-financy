@@ -8,11 +8,13 @@ import { signToken } from "../utils/jwt.js";
 import { normalizeEmail, requireText } from "../utils/validate.js";
 
 const MIN_PASSWORD_LENGTH = 8;
+const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 export class AuthService {
   async register(input: RegisterInput): Promise<AuthOutput> {
     const name = requireText(input.name, "Nome");
     const email = requireText(normalizeEmail(input.email), "E-mail");
+    if (!EMAIL_PATTERN.test(email)) throw badInput("E-mail inválido");
     if (input.password.length < MIN_PASSWORD_LENGTH) {
       throw badInput("A senha deve ter no mínimo 8 caracteres");
     }

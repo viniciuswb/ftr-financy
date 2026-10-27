@@ -40,6 +40,13 @@ describe("register", () => {
     expect(errorCode(res)).toBe("BAD_USER_INPUT");
   });
 
+  it("rejects an email without a valid format", async () => {
+    const res = await exec(REGISTER, {
+      data: { name: "A", email: "not-an-email", password: "12345678" },
+    });
+    expect(errorCode(res)).toBe("BAD_USER_INPUT");
+  });
+
   it("rejects an empty name", async () => {
     const res = await exec(REGISTER, {
       data: { name: "   ", email: "conta@teste.com", password: "12345678" },
