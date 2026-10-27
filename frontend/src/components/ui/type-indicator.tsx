@@ -1,5 +1,5 @@
 import { CircleArrowDown, CircleArrowUp } from "lucide-react";
-import type { TransactionType } from "@/lib/money";
+import type { TransactionType } from "@/graphql/types";
 import { cn } from "@/lib/utils";
 
 export function TypeIndicator({ type, className }: { type: TransactionType; className?: string }) {

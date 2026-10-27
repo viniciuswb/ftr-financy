@@ -1,4 +1,4 @@
-export type TransactionType = "EXPENSE" | "INCOME";
+import type { TransactionType } from "@/graphql/types";
 
 const currency = new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" });
 
