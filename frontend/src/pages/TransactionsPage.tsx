@@ -15,6 +15,8 @@ import { TypeIndicator } from "@/components/ui/type-indicator";
 import { filterTransactions, paginate, periodOptions, type TransactionFilters } from "@/features/transactions";
 import { CATEGORIES, DELETE_TRANSACTION, TRANSACTIONS } from "@/graphql/operations";
 import type { Category, Transaction } from "@/graphql/types";
+import { toastApiError } from "@/lib/api-error";
+import { refreshListsOptions } from "@/lib/cache";
 import { currentMonthKey, formatShortDate } from "@/lib/dates";
 import { formatSignedAmount } from "@/lib/money";
 import { cn } from "@/lib/utils";
@@ -40,10 +42,7 @@ export function TransactionsPage() {
   const [page, setPage] = useState(1);
   const [modal, setModal] = useState<{ open: boolean; transaction?: Transaction }>({ open: false });
   const [toDelete, setToDelete] = useState<Transaction | null>(null);
-  const [deleteTransaction] = useMutation(DELETE_TRANSACTION, {
-    refetchQueries: [TRANSACTIONS, CATEGORIES],
-    awaitRefetchQueries: true,
-  });
+  const [deleteTransaction] = useMutation(DELETE_TRANSACTION, refreshListsOptions);
 
   const transactions = useMemo(() => data?.transactions ?? [], [data]);
   const categories = categoriesData?.categories ?? [];
@@ -63,7 +62,7 @@ export function TransactionsPage() {
       toast.success("Transação excluída");
       setPage(view.page);
     } catch (e) {
-      toast.error(e instanceof Error ? e.message : "Não foi possível excluir a transação");
+      toastApiError(e, "Não foi possível excluir a transação");
     } finally {
       setToDelete(null);
     }
@@ -156,7 +155,7 @@ export function TransactionsPage() {
         </div>
         <div className="flex flex-wrap items-center justify-between gap-4 px-6 py-5">
           <p className="text-sm leading-5 text-gray-700">
-            {view.from} a {view.to} | {view.total} resultados
+            {view.from} a {view.to} | {view.total} {view.total === 1 ? "resultado" : "resultados"}
           </p>
           <Pagination page={view.page} pageCount={view.pageCount} onPageChange={setPage} />
         </div>

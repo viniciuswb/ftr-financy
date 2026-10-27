@@ -75,7 +75,7 @@ describe("TransactionsPage", () => {
     expect(screen.queryByText("Consulta Saúde")).not.toBeInTheDocument();
     await userEvent.clear(screen.getByLabelText("Buscar"));
     await choose("Tipo", "Entrada");
-    expect(screen.getByText("1 a 1 | 1 resultados")).toBeInTheDocument();
+    expect(screen.getByText("1 a 1 | 1 resultado")).toBeInTheDocument();
     await choose("Tipo", "Todos");
     await choose("Categoria", "Saúde");
     expect(screen.getByText("Consulta Saúde")).toBeInTheDocument();

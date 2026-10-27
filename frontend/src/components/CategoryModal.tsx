@@ -7,9 +7,11 @@ import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Dialog } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
-import { CATEGORIES, CREATE_CATEGORY, TRANSACTIONS, UPDATE_CATEGORY } from "@/graphql/operations";
+import { CREATE_CATEGORY, UPDATE_CATEGORY } from "@/graphql/operations";
 import type { Category } from "@/graphql/types";
 import { CATEGORY_COLOR_KEYS, CATEGORY_ICON_KEYS, categoryColorClasses, categoryIcon } from "@/lib/category-style";
+import { toastApiError } from "@/lib/api-error";
+import { refreshListsOptions } from "@/lib/cache";
 import { cn } from "@/lib/utils";
 
 const schema = z.object({
@@ -36,9 +38,8 @@ function defaults(category?: Category): FormValues {
 }
 
 export function CategoryModal({ open, onOpenChange, category }: CategoryModalProps) {
-  const options = { refetchQueries: [CATEGORIES, TRANSACTIONS], awaitRefetchQueries: true };
-  const [create, { loading: creating }] = useMutation(CREATE_CATEGORY, options);
-  const [update, { loading: updating }] = useMutation(UPDATE_CATEGORY, options);
+  const [create, { loading: creating }] = useMutation(CREATE_CATEGORY, refreshListsOptions);
+  const [update, { loading: updating }] = useMutation(UPDATE_CATEGORY, refreshListsOptions);
   const {
     register,
     handleSubmit,
@@ -76,7 +77,7 @@ export function CategoryModal({ open, onOpenChange, category }: CategoryModalPro
       }
       onOpenChange(false);
     } catch (error) {
-      toast.error(error instanceof Error ? error.message : "Não foi possível salvar a categoria");
+      toastApiError(error, "Não foi possível salvar a categoria");
     }
   }
 

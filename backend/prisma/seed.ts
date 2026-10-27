@@ -1,6 +1,6 @@
 import { prisma } from "../src/lib/prisma.js";
 import { hashPassword } from "../src/utils/hash.js";
-import { shiftDemoDates } from "./demo-dates.js";
+import { calendarDateIn, shiftDemoDates } from "./demo-dates.js";
 
 const DEMO_EMAIL = "conta@teste.com";
 
@@ -47,8 +47,10 @@ async function main() {
     categoryIds.set(category.title, created.id);
   }
 
+  // "Today" is the calendar date in SEED_TZ, not UTC (a container or a late evening in Brazil would be a day ahead).
+  const today = calendarDateIn(new Date(), process.env.SEED_TZ ?? "America/Sao_Paulo");
   // Fixed sample dates are shifted so the newest transaction is today (demo data stays in the current month).
-  const dates = shiftDemoDates(transactions.map((t) => t.date), new Date());
+  const dates = shiftDemoDates(transactions.map((t) => t.date), new Date(`${today}T00:00:00Z`));
   for (const [index, { category, ...transaction }] of transactions.entries()) {
     await prisma.transaction.create({
       data: {

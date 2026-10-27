@@ -7,6 +7,7 @@ import { LogIn, Mail, User as UserIcon } from "lucide-react";
 import { toast } from "sonner";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { toastApiError } from "@/lib/api-error";
 import { cn } from "@/lib/utils";
 import { REGISTER } from "@/graphql/operations";
 import type { AuthPayload } from "@/graphql/types";
@@ -42,7 +43,7 @@ export function SignUpPage() {
       toast.success("Conta criada com sucesso!");
       navigate("/");
     } catch (error) {
-      toast.error(error instanceof Error ? error.message : "Não foi possível criar a conta");
+      toastApiError(error, "Não foi possível criar a conta");
     }
   }
 

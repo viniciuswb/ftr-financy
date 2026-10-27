@@ -1,8 +1,9 @@
 import { describe, expect, it } from "vitest";
-import { screen, within } from "@testing-library/react";
+import { screen, waitFor, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { renderWithProviders } from "@/test/render";
 import { AppRoutes } from "@/routes/app-routes";
+import { CombinedGraphQLErrors } from "@apollo/client";
 import { CATEGORIES, DELETE_CATEGORY, ME, TRANSACTIONS } from "@/graphql/operations";
 import type { Category } from "@/graphql/types";
 
@@ -61,5 +62,51 @@ describe("CategoriesPage", () => {
     renderWithProviders(<AppRoutes />, { route: "/categorias", auth, mocks: [meMock, categoriesMock([])] });
     await userEvent.click(await screen.findByRole("button", { name: "Nova categoria" }));
     expect(await screen.findByRole("dialog")).toBeInTheDocument();
+  });
+
+  it("shows fresh transactions on a screen mounted after a category delete", async () => {
+    const stale = {
+      id: "t1", type: "EXPENSE", description: "Almoço", date: "2026-10-20", amount: 5000, categoryId: "1",
+      category: { id: "1", title: "Alimentação", icon: "utensils", color: "blue" },
+    };
+    renderWithProviders(<AppRoutes />, {
+      route: "/transacoes",
+      auth,
+      mocks: [
+        meMock,
+        categoriesMock([cat({})]),
+        { request: { query: TRANSACTIONS }, result: { data: { transactions: [stale] } } },
+        { request: { query: DELETE_CATEGORY, variables: { id: "1" } }, result: { data: { deleteCategory: true } } },
+        categoriesMock([]),
+        { request: { query: TRANSACTIONS }, result: { data: { transactions: [] } } },
+      ],
+    });
+    await screen.findByText("Almoço");
+    // Leave Transações (its query unmounts), delete the category, come back.
+    await userEvent.click(screen.getByRole("link", { name: "Categorias" }));
+    await userEvent.click(await screen.findByRole("button", { name: "Excluir Alimentação" }));
+    await userEvent.click(within(await screen.findByRole("alertdialog")).getByRole("button", { name: "Excluir" }));
+    expect(await screen.findByText("Categoria excluída")).toBeInTheDocument();
+    await userEvent.click(screen.getByRole("link", { name: "Transações" }));
+    expect(await screen.findByText("0 a 0 | 0 resultados")).toBeInTheDocument();
+    expect(screen.queryByText("Almoço")).not.toBeInTheDocument();
+  });
+
+  it("shows no error toast of its own when the session expired during a delete", async () => {
+    const expired = new CombinedGraphQLErrors({ errors: [{ message: "Não autenticado", extensions: { code: "UNAUTHENTICATED" } }] });
+    renderWithProviders(<AppRoutes />, {
+      route: "/categorias",
+      auth,
+      mocks: [
+        meMock,
+        categoriesMock([cat({})]),
+        { request: { query: DELETE_CATEGORY, variables: { id: "1" } }, error: expired },
+      ],
+    });
+    await userEvent.click(await screen.findByRole("button", { name: "Excluir Alimentação" }));
+    await userEvent.click(within(await screen.findByRole("alertdialog")).getByRole("button", { name: "Excluir" }));
+    await waitFor(() => expect(screen.queryByRole("alertdialog")).not.toBeInTheDocument());
+    expect(screen.queryByText("Não autenticado")).not.toBeInTheDocument();
+    expect(screen.queryByText("Não foi possível excluir a categoria")).not.toBeInTheDocument();
   });
 });

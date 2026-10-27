@@ -9,6 +9,7 @@ import { toast } from "sonner";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
+import { toastApiError } from "@/lib/api-error";
 import { cn } from "@/lib/utils";
 import { LOGIN } from "@/graphql/operations";
 import type { AuthPayload } from "@/graphql/types";
@@ -41,7 +42,7 @@ export function LoginPage() {
       login({ token, user }, remember);
       navigate("/");
     } catch (error) {
-      toast.error(error instanceof Error ? error.message : "Não foi possível entrar");
+      toastApiError(error, "Não foi possível entrar");
     }
   }
 

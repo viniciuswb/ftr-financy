@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { UPDATE_ME } from "@/graphql/operations";
 import type { User } from "@/graphql/types";
+import { toastApiError } from "@/lib/api-error";
 import { initials } from "@/lib/text";
 import { useAuth } from "@/stores/auth";
 
@@ -35,7 +36,7 @@ export function ProfilePage() {
       setUser(result.data.updateMe);
       toast.success("Perfil atualizado");
     } catch (error) {
-      toast.error(error instanceof Error ? error.message : "Não foi possível atualizar o perfil");
+      toastApiError(error, "Não foi possível atualizar o perfil");
     }
   }
 

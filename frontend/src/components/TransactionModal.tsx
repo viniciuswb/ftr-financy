@@ -11,8 +11,10 @@ import { DatePicker } from "@/components/ui/date-picker";
 import { Dialog } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Select } from "@/components/ui/select";
-import { CATEGORIES, CREATE_TRANSACTION, TRANSACTIONS, UPDATE_TRANSACTION } from "@/graphql/operations";
+import { CATEGORIES, CREATE_TRANSACTION, UPDATE_TRANSACTION } from "@/graphql/operations";
 import type { Category, Transaction } from "@/graphql/types";
+import { toastApiError } from "@/lib/api-error";
+import { refreshListsOptions } from "@/lib/cache";
 import { cn } from "@/lib/utils";
 
 const schema = z.object({
@@ -48,9 +50,8 @@ const TYPE_OPTIONS = [
 export function TransactionModal({ open, onOpenChange, transaction }: TransactionModalProps) {
   const { data } = useQuery<{ categories: Category[] }>(CATEGORIES);
   const categories = data?.categories ?? [];
-  const options = { refetchQueries: [TRANSACTIONS, CATEGORIES], awaitRefetchQueries: true };
-  const [create, { loading: creating }] = useMutation(CREATE_TRANSACTION, options);
-  const [update, { loading: updating }] = useMutation(UPDATE_TRANSACTION, options);
+  const [create, { loading: creating }] = useMutation(CREATE_TRANSACTION, refreshListsOptions);
+  const [update, { loading: updating }] = useMutation(UPDATE_TRANSACTION, refreshListsOptions);
   const {
     register,
     handleSubmit,
@@ -81,7 +82,7 @@ export function TransactionModal({ open, onOpenChange, transaction }: Transactio
       }
       onOpenChange(false);
     } catch (error) {
-      toast.error(error instanceof Error ? error.message : "Não foi possível salvar a transação");
+      toastApiError(error, "Não foi possível salvar a transação");
     }
   }
 

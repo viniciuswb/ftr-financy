@@ -8,10 +8,12 @@ import { Button } from "@/components/ui/button";
 import { ConfirmDialog } from "@/components/ui/alert-dialog";
 import { IconButton } from "@/components/ui/icon-button";
 import { Tag } from "@/components/ui/tag";
-import { CATEGORIES, DELETE_CATEGORY, TRANSACTIONS } from "@/graphql/operations";
+import { CATEGORIES, DELETE_CATEGORY } from "@/graphql/operations";
 import type { Category } from "@/graphql/types";
 import { categoriesSummary } from "@/features/summaries";
 import { categoryColorClasses, categoryIcon } from "@/lib/category-style";
+import { toastApiError } from "@/lib/api-error";
+import { refreshListsOptions } from "@/lib/cache";
 import { pluralItems } from "@/lib/text";
 import { cn } from "@/lib/utils";
 
@@ -31,10 +33,7 @@ export function CategoriesPage() {
   const { data, loading, error } = useQuery<{ categories: Category[] }>(CATEGORIES);
   const [modal, setModal] = useState<{ open: boolean; category?: Category }>({ open: false });
   const [toDelete, setToDelete] = useState<Category | null>(null);
-  const [deleteCategory] = useMutation(DELETE_CATEGORY, {
-    refetchQueries: [CATEGORIES, TRANSACTIONS],
-    awaitRefetchQueries: true,
-  });
+  const [deleteCategory] = useMutation(DELETE_CATEGORY, refreshListsOptions);
 
   const categories = data?.categories ?? [];
   const { totalCategories, totalTransactions, mostUsed } = categoriesSummary(categories);
@@ -46,7 +45,7 @@ export function CategoriesPage() {
       await deleteCategory({ variables: { id: toDelete.id } });
       toast.success("Categoria excluída");
     } catch (e) {
-      toast.error(e instanceof Error ? e.message : "Não foi possível excluir a categoria");
+      toastApiError(e, "Não foi possível excluir a categoria");
     } finally {
       setToDelete(null);
     }

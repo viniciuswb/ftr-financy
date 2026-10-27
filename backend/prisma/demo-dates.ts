@@ -10,3 +10,9 @@ export function shiftDemoDates(isoDates: string[], today: Date): string[] {
   const todayUtc = Date.UTC(today.getUTCFullYear(), today.getUTCMonth(), today.getUTCDate());
   return times.map((time) => new Date(todayUtc - Math.round((newest - time) / DAY_MS) * DAY_MS).toISOString().slice(0, 10));
 }
+
+/** Calendar date (YYYY-MM-DD) of `instant` in the given IANA timezone. */
+export function calendarDateIn(instant: Date, timeZone: string): string {
+  // The en-CA locale formats dates as YYYY-MM-DD.
+  return new Intl.DateTimeFormat("en-CA", { timeZone, year: "numeric", month: "2-digit", day: "2-digit" }).format(instant);
+}
