@@ -1,10 +1,10 @@
 import { useState, type Ref } from "react";
-import { Eye, EyeOff, Lock } from "lucide-react";
+import { Eye, EyeClosed, Lock } from "lucide-react";
 import { Input, type InputProps } from "@/components/ui/input";
 
 export function PasswordInput({ ref, ...props }: Omit<InputProps, "type" | "icon" | "rightSlot"> & { ref?: Ref<HTMLInputElement> }) {
   const [visible, setVisible] = useState(false);
-  const Toggle = visible ? EyeOff : Eye;
+  const Toggle = visible ? Eye : EyeClosed;
   return (
     <Input
       ref={ref}

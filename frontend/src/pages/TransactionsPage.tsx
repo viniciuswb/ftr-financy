@@ -74,7 +74,7 @@ export function TransactionsPage() {
       <header className="flex flex-wrap items-center justify-between gap-4">
         <div>
           <h1 className="text-2xl font-bold leading-8 text-gray-800">Transações</h1>
-          <p className="text-base leading-6 text-gray-600">Gerencie todas as suas transações financeiras</p>
+          <p className="mt-0.5 text-base leading-6 text-gray-600">Gerencie todas as suas transações financeiras</p>
         </div>
         <Button size="sm" onClick={() => setModal({ open: true })}>
           <Plus aria-hidden />
@@ -82,7 +82,7 @@ export function TransactionsPage() {
         </Button>
       </header>
 
-      <section className="grid grid-cols-1 gap-4 rounded-xl border border-gray-200 bg-white p-6 sm:grid-cols-2 lg:grid-cols-4">
+      <section className="grid grid-cols-1 gap-4 rounded-xl border border-gray-200 bg-white px-6 pb-6 pt-5 sm:grid-cols-2 lg:grid-cols-4">
         <Input
           label="Buscar"
           icon={Search}
@@ -116,13 +116,13 @@ export function TransactionsPage() {
       <section className="overflow-hidden rounded-xl border border-gray-200 bg-white">
         <div className="overflow-x-auto">
           <div className="min-w-[1008px]">
-            <div className={cn(COLUMNS, "h-14 items-center border-b border-gray-200")}>
+            <div className={cn(COLUMNS, "h-[57px] items-center border-b border-gray-200")}>
               <span className={cn(headerCell, "px-6")}>Descrição</span>
               <span className={cn(headerCell, "text-center")}>Data</span>
               <span className={cn(headerCell, "text-center")}>Categoria</span>
               <span className={cn(headerCell, "text-center")}>Tipo</span>
               <span className={cn(headerCell, "px-6 text-right")}>Valor</span>
-              <span className={cn(headerCell, "text-center")}>Ações</span>
+              <span className={cn(headerCell, "px-6 text-right")}>Ações</span>
             </div>
             {loading && !data ? (
               <p className="px-6 py-8 text-sm text-gray-500">Carregando...</p>

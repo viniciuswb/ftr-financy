@@ -97,7 +97,7 @@ export function CategoryModal({ open, onOpenChange, category }: CategoryModalPro
               control={control}
               name="icon"
               render={({ field }) => (
-                <div role="radiogroup" aria-labelledby="category-icon-label" className="grid grid-cols-8 gap-2">
+                <div role="radiogroup" aria-labelledby="category-icon-label" className="flex flex-wrap gap-2">
                   {CATEGORY_ICON_KEYS.map((key) => {
                     const Icon = categoryIcon(key);
                     const selected = field.value === key;
@@ -114,7 +114,7 @@ export function CategoryModal({ open, onOpenChange, category }: CategoryModalPro
                           selected ? "border-brand-base text-brand-base" : "border-gray-300",
                         )}
                       >
-                        <Icon className="size-4" aria-hidden />
+                        <Icon className="size-5" aria-hidden />
                       </button>
                     );
                   })}

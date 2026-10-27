@@ -54,7 +54,7 @@ export function ProfilePage() {
           </div>
           <div className="flex w-full flex-col items-center text-center">
             <h1 className="max-w-full break-words text-xl font-semibold leading-7 text-gray-800">{user?.name}</h1>
-            <p className="max-w-full break-words text-base leading-6 text-gray-500">{user?.email}</p>
+            <p className="mt-0.5 max-w-full break-words text-base leading-6 text-gray-500">{user?.email}</p>
           </div>
         </div>
         <hr className="border-gray-200" />

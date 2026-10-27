@@ -100,7 +100,7 @@ export function TransactionModal({ open, onOpenChange, transaction }: Transactio
             control={control}
             name="type"
             render={({ field }) => (
-              <div role="radiogroup" aria-label="Tipo" className="flex gap-1 rounded-xl border border-gray-200 bg-white p-1">
+              <div role="radiogroup" aria-label="Tipo" className="mb-2 flex rounded-xl border border-gray-200 bg-white p-[7px]">
                 {TYPE_OPTIONS.map(({ value, label, icon: Icon, active, iconClass }) => {
                   const selected = field.value === value;
                   return (
@@ -111,8 +111,8 @@ export function TransactionModal({ open, onOpenChange, transaction }: Transactio
                       aria-checked={selected}
                       onClick={() => field.onChange(value)}
                       className={cn(
-                        "flex flex-1 cursor-pointer items-center justify-center gap-3 rounded-lg border px-3 py-3 text-base leading-6 transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-base",
-                        selected ? cn("bg-white font-medium text-gray-800", active) : "border-transparent text-gray-600 hover:bg-gray-100",
+                        "flex flex-1 cursor-pointer items-center justify-center gap-3 rounded-lg border px-3 py-[10px] text-base leading-6 transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-base",
+                        selected ? cn("bg-gray-100 font-medium text-gray-800", active) : "border-transparent text-gray-600 hover:bg-gray-100",
                       )}
                     >
                       <Icon className={cn("size-4", selected ? iconClass : "text-gray-400")} aria-hidden />

@@ -25,7 +25,7 @@ export function Select({ options, value, onValueChange, placeholder, label, id, 
         <SelectPrimitive.Trigger
           id={id}
           className={cn(
-            "flex w-full cursor-pointer items-center gap-3 rounded-lg border border-gray-300 bg-white px-[13px] py-[15px] text-left text-base leading-[18px] text-gray-800 outline-none focus-visible:border-brand-base data-[state=open]:border-brand-base disabled:cursor-not-allowed disabled:opacity-50 data-[placeholder]:text-gray-400",
+            "flex w-full cursor-pointer items-center gap-3 rounded-lg border border-gray-300 bg-white px-[13px] py-[14px] text-left text-base leading-[18px] text-gray-800 outline-none focus-visible:border-brand-base data-[state=open]:border-brand-base disabled:cursor-not-allowed disabled:opacity-50 data-[placeholder]:text-gray-400",
           )}
         >
           <span className="min-w-0 flex-1 truncate">

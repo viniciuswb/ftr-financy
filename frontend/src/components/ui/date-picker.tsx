@@ -2,7 +2,6 @@ import { useState } from "react";
 import { Popover as PopoverPrimitive } from "radix-ui";
 import { DayPicker } from "react-day-picker";
 import { ptBR } from "react-day-picker/locale";
-import { Calendar } from "lucide-react";
 import { fromIsoDate, toIsoDate } from "@/lib/dates";
 import { cn } from "@/lib/utils";
 
@@ -33,10 +32,9 @@ export function DatePicker({ value, onChange, placeholder = "Selecione", label, 
         )}
         <PopoverPrimitive.Trigger
           id={id}
-          className="flex w-full cursor-pointer items-center gap-3 rounded-lg border border-gray-300 bg-white px-[13px] py-[15px] text-left text-base leading-[18px] outline-none focus-visible:border-brand-base data-[state=open]:border-brand-base"
+          className="flex w-full cursor-pointer items-center gap-3 rounded-lg border border-gray-300 bg-white px-[13px] py-[14px] text-left text-base leading-[18px] outline-none focus-visible:border-brand-base data-[state=open]:border-brand-base"
         >
           <span className={cn("flex-1", value ? "text-gray-800" : "text-gray-400")}>{value ? display(value) : placeholder}</span>
-          <Calendar className="size-4 shrink-0 text-gray-500" aria-hidden />
         </PopoverPrimitive.Trigger>
       </div>
       <PopoverPrimitive.Portal>

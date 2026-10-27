@@ -29,7 +29,7 @@ export function CurrencyInput({ value, onChange, label, id, error, disabled, cla
       )}
       <div
         className={cn(
-          "flex w-full items-center gap-2 rounded-lg border border-gray-300 bg-white px-[13px] py-[15px] focus-within:border-brand-base",
+          "flex w-full items-center gap-2 rounded-lg border border-gray-300 bg-white px-[13px] py-[14px] focus-within:border-brand-base",
           error && "border-danger focus-within:border-danger",
           disabled && "opacity-50",
         )}

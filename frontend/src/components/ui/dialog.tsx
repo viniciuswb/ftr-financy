@@ -14,13 +14,13 @@ export function Dialog({ open, onOpenChange, title, description, children }: Dia
   return (
     <DialogPrimitive.Root open={open} onOpenChange={onOpenChange}>
       <DialogPrimitive.Portal>
-        <DialogPrimitive.Overlay className="fixed inset-0 z-40 bg-black/50" />
+        <DialogPrimitive.Overlay className="fixed inset-0 z-40 bg-black/20" />
         <DialogPrimitive.Content
           aria-describedby={description ? undefined : ""}
           className="fixed top-1/2 left-1/2 z-50 flex max-h-[calc(100vh-32px)] w-[calc(100vw-32px)] max-w-[448px] -translate-x-1/2 -translate-y-1/2 flex-col gap-6 overflow-y-auto rounded-xl border border-gray-200 bg-white p-6 shadow-lg"
         >
           <div className="flex items-start justify-between gap-4">
-            <div className="flex flex-col gap-1">
+            <div className="flex flex-col gap-0.5">
               <DialogPrimitive.Title className="text-base font-semibold leading-6 text-gray-800">{title}</DialogPrimitive.Title>
               {description ? (
                 <DialogPrimitive.Description className="text-sm leading-5 text-gray-600">{description}</DialogPrimitive.Description>

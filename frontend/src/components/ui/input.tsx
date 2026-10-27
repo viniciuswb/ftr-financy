@@ -32,12 +32,15 @@ export function Input({ ref, label, icon: Icon, error, helper, rightSlot, classN
       )}
       <div
         className={cn(
-          "flex w-full items-center gap-3 overflow-clip rounded-lg border border-gray-300 bg-white px-[13px] py-[15px] focus-within:border-brand-base",
+          "flex w-full items-center gap-3 overflow-clip rounded-lg border border-gray-300 bg-white px-[13px] py-[14px] focus-within:border-brand-base",
           error && "border-danger focus-within:border-danger",
           disabled && "opacity-50",
         )}
       >
-        {Icon && <Icon className="size-4 shrink-0 text-gray-400 group-focus-within:text-brand-base" aria-hidden />}
+        {Icon && <Icon
+            className="size-4 shrink-0 text-gray-400 group-focus-within:text-brand-base [.group:has(input:not(:placeholder-shown):enabled):not(:focus-within)_&]:text-gray-700"
+            aria-hidden
+          />}
         <input
           ref={ref}
           id={inputId}

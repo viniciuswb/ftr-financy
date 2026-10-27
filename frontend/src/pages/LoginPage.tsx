@@ -73,7 +73,7 @@ export function LoginPage() {
             <button
               type="button"
               onClick={() => toast.info("Funcionalidade em breve")}
-              className="cursor-pointer border-b border-transparent text-sm font-medium leading-5 text-brand-base hover:border-brand-base focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-base"
+              className="cursor-pointer text-sm font-medium leading-5 text-brand-base hover:shadow-[inset_0_-1px_0_var(--color-brand-base)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-base"
             >
               Recuperar senha
             </button>

@@ -52,7 +52,8 @@ describe("DashboardPage", () => {
     expect(screen.getByText("R$ 4.250,00")).toBeInTheDocument();
     expect(screen.getByText("R$ 500,00")).toBeInTheDocument();
     const section = screen.getByRole("region", { name: "Categorias" });
-    expect(within(section).getByText("12 itens")).toBeInTheDocument();
+    // Categories come from a separate query that may resolve after transactions.
+    expect(await within(section).findByText("12 itens")).toBeInTheDocument();
     expect(within(section).getByText("R$ 542,30")).toBeInTheDocument();
     expect(within(section).getByText("1 item")).toBeInTheDocument();
     expect(screen.getByRole("link", { name: "Ver todas" })).toHaveAttribute("href", "/transacoes");
@@ -67,7 +68,7 @@ describe("DashboardPage", () => {
   it("shows empty states", async () => {
     renderPage([], []);
     expect(await screen.findByText("Nenhuma transação ainda")).toBeInTheDocument();
-    expect(screen.getByText("Nenhuma categoria ainda")).toBeInTheDocument();
+    expect(await screen.findByText("Nenhuma categoria ainda")).toBeInTheDocument();
   });
 
   it("opens the new transaction modal", async () => {

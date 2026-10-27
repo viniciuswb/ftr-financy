@@ -8,7 +8,7 @@ export function AuthShell({ title, subtitle, children }: { title: string; subtit
       <section className="mt-8 w-full max-w-[448px] rounded-xl border border-gray-200 bg-white p-8">
         <header className="text-center">
           <h1 className="text-xl font-bold leading-7 text-gray-800">{title}</h1>
-          <p className="text-base leading-6 text-gray-600">{subtitle}</p>
+          <p className="mt-1 text-base leading-6 text-gray-600">{subtitle}</p>
         </header>
         <div className="mt-8">{children}</div>
       </section>

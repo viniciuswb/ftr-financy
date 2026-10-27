@@ -56,7 +56,7 @@ export function DashboardPage() {
   return (
     <main className="mx-auto flex w-full max-w-[1280px] flex-col gap-6 px-4 py-12 sm:px-12">
       <h1 className="sr-only">Dashboard</h1>
-      <section className="grid grid-cols-1 gap-6 md:grid-cols-3">
+      <section className="grid grid-cols-1 gap-6 lg:grid-cols-3">
         <SummaryCard icon={<Wallet aria-hidden />} iconClass="text-purple-base" label="Saldo total" value={formatCurrency(summary.balance)} />
         <SummaryCard icon={<CircleArrowUp aria-hidden />} iconClass="text-success" label="Receitas do mês" value={formatCurrency(summary.monthIncome)} />
         <SummaryCard icon={<CircleArrowDown aria-hidden />} iconClass="text-danger" label="Despesas do mês" value={formatCurrency(summary.monthExpense)} />
@@ -73,7 +73,7 @@ export function DashboardPage() {
               recent.map((t) => (
                 <div key={t.id} className="flex h-20 items-center gap-4 border-b border-gray-200 px-6">
                   <CategoryIcon icon={t.category.icon} color={t.category.color} />
-                  <div className="flex min-w-0 flex-1 flex-col">
+                  <div className="flex min-w-0 flex-1 flex-col gap-0.5">
                     <span className="truncate text-base font-medium leading-6 text-gray-800">{t.description}</span>
                     <span className="text-sm leading-5 text-gray-600">{formatShortDate(t.date)}</span>
                   </div>

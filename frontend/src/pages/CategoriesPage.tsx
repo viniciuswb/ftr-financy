@@ -57,7 +57,7 @@ export function CategoriesPage() {
       <header className="flex flex-wrap items-center justify-between gap-4">
         <div>
           <h1 className="text-2xl font-bold leading-8 text-gray-800">Categorias</h1>
-          <p className="text-base leading-6 text-gray-600">Organize suas transações por categorias</p>
+          <p className="mt-0.5 text-base leading-6 text-gray-600">Organize suas transações por categorias</p>
         </div>
         <Button size="sm" onClick={() => setModal({ open: true })}>
           <Plus aria-hidden />
@@ -65,7 +65,7 @@ export function CategoriesPage() {
         </Button>
       </header>
 
-      <section className="grid grid-cols-1 gap-6 md:grid-cols-3">
+      <section className="grid grid-cols-1 gap-6 lg:grid-cols-3">
         <SummaryCard icon={<TagIcon aria-hidden />} iconClass="text-gray-700" value={String(totalCategories)} label="total de categorias" />
         <SummaryCard icon={<ArrowUpDown aria-hidden />} iconClass="text-purple-base" value={String(totalTransactions)} label="total de transações" />
         <SummaryCard
