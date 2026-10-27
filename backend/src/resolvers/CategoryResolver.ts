@@ -1,8 +1,9 @@
-import { Arg, ID, Mutation, Query, Resolver, UseMiddleware } from "type-graphql";
+import { Arg, FieldResolver, ID, Int, Mutation, Query, Resolver, Root, UseMiddleware } from "type-graphql";
 import { GQLUser } from "../decorators/GQLUser.js";
 import { CreateCategoryInput } from "../dtos/inputs/CreateCategoryInput.js";
 import { UpdateCategoryInput } from "../dtos/inputs/UpdateCategoryInput.js";
 import type { Category, User } from "../generated/prisma/client.js";
+import { prisma } from "../lib/prisma.js";
 import { isAuth } from "../middlewares/isAuth.js";
 import { CategoryModel } from "../models/CategoryModel.js";
 import { CategoryService } from "../services/CategoryService.js";
@@ -37,5 +38,19 @@ export class CategoryResolver {
   @Mutation(() => Boolean)
   deleteCategory(@GQLUser() user: User, @Arg("id", () => ID) id: string): Promise<boolean> {
     return this.categoryService.delete(user.id, id);
+  }
+
+  @FieldResolver(() => Int)
+  transactionCount(@Root() category: Category): Promise<number> {
+    return prisma.transaction.count({ where: { categoryId: category.id } });
+  }
+
+  @FieldResolver(() => Int, { description: "All-time sum of the category's amounts in cents, regardless of type" })
+  async totalAmount(@Root() category: Category): Promise<number> {
+    const result = await prisma.transaction.aggregate({
+      where: { categoryId: category.id },
+      _sum: { amount: true },
+    });
+    return result._sum.amount ?? 0;
   }
 }
