@@ -27,6 +27,12 @@ const transactions = [
 ];
 
 async function main() {
+  // `--if-empty` (used by the Docker entrypoint) seeds only a database with no users yet.
+  if (process.argv.includes("--if-empty") && (await prisma.user.count()) > 0) {
+    console.log("Database already has users; skipping seed.");
+    return;
+  }
+
   // Re-runnable: removing the demo user cascades to its categories and transactions.
   await prisma.user.deleteMany({ where: { email: DEMO_EMAIL } });
 

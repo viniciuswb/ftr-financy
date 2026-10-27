@@ -4,12 +4,26 @@ GraphQL API for Financy. Each user manages only their own categories and transac
 
 **Stack:** TypeScript, Express 5, Apollo Server, TypeGraphQL, Prisma, SQLite.
 
-## Prerequisites
+## Running with Docker
+
+From the **repo root**:
+
+```bash
+docker compose up --build
+```
+
+The API comes up at **http://localhost:4000/graphql**. On start, the container applies migrations and, if the database has no users yet, creates the demo account below. The SQLite database lives in the `backend-data` Docker volume, so data survives restarts. `docker compose down -v` wipes it.
+
+`JWT_SECRET` and `CORS_ORIGIN` have local defaults. To override them, copy the root `.env.example` to `.env` and fill them in.
+
+## Running locally
+
+### Prerequisites
 
 - Node.js 20.19 or newer
 - npm
 
-## Setup
+### Setup
 
 ```bash
 npm install                # also generates the Prisma client
@@ -21,7 +35,7 @@ npm run dev
 
 The API runs at **http://localhost:4000/graphql**. Opening it in a browser shows Apollo Sandbox.
 
-### Environment variables
+#### Environment variables
 
 | Variable | Example | Description |
 |---|---|---|
@@ -30,7 +44,7 @@ The API runs at **http://localhost:4000/graphql**. Opening it in a browser shows
 | `PORT` | `4000` | Optional, defaults to 4000 |
 | `CORS_ORIGIN` | `http://localhost:5173` | Optional, the front-end's URL; defaults to the Vite dev server |
 
-### Demo account
+#### Demo account
 
 After `npm run db:seed`: **conta@teste.com** / **12345678**, with 8 categories and 9 transactions. Running the seed again resets that account's data.
 

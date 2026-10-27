@@ -1,6 +1,9 @@
 generator client {
   provider = "prisma-client"
   output   = "../src/generated/prisma"
+  // Explicit so the generated imports compile to runnable ESM regardless of where `generate` runs.
+  moduleFormat        = "esm"
+  importFileExtension = "js"
 }
 
 datasource db {
