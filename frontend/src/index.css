@@ -1,0 +1,50 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", sans-serif;
+
+  --color-brand-dark: #124B2B;
+  --color-brand-base: #1F6F43;
+
+  --color-gray-800: #111827;
+  --color-gray-700: #374151;
+  --color-gray-600: #4B5563;
+  --color-gray-500: #6B7280;
+  --color-gray-400: #9CA3AF;
+  --color-gray-300: #D1D5DB;
+  --color-gray-200: #E5E7EB;
+  --color-gray-100: #F8F9FA;
+
+  --color-black: #000000;
+  --color-white: #FFFFFF;
+  --color-danger: #EF4444;
+  --color-success: #19AD70;
+
+  --color-blue-dark: #1D4ED8;
+  --color-blue-base: #2563EB;
+  --color-blue-light: #DBEAFE;
+  --color-purple-dark: #7E22CE;
+  --color-purple-base: #9333EA;
+  --color-purple-light: #F3E8FF;
+  --color-pink-dark: #BE185D;
+  --color-pink-base: #DB2777;
+  --color-pink-light: #FCE7F3;
+  --color-red-dark: #B91C1C;
+  --color-red-base: #DC2626;
+  --color-red-light: #FEE2E2;
+  --color-orange-dark: #C2410C;
+  --color-orange-base: #EA580C;
+  --color-orange-light: #FFEDD5;
+  --color-yellow-dark: #A16207;
+  --color-yellow-base: #CA8A04;
+  --color-yellow-light: #F7F3CA;
+  --color-green-dark: #15803D;
+  --color-green-base: #16A34A;
+  --color-green-light: #E0FAE9;
+}
+
+@layer base {
+  body {
+    @apply bg-gray-100 text-gray-800 font-sans;
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "name": "financy-frontend",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@apollo/client": "4.3.5",
+    "@hookform/resolvers": "5.9.2",
+    "class-variance-authority": "0.7.1",
+    "clsx": "2.1.1",
+    "date-fns": "4.4.0",
+    "graphql": "16.14.2",
+    "lucide-react": "1.61.0",
+    "radix-ui": "1.8.1",
+    "react": "19.3.1",
+    "react-day-picker": "9.14.0",
+    "react-dom": "19.3.1",
+    "react-hook-form": "7.91.0",
+    "react-router": "7.18.4",
+    "rxjs": "7.8.2",
+    "sonner": "2.0.8",
+    "tailwind-merge": "3.7.0",
+    "zod": "4.6.7",
+    "zustand": "5.0.16"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "4.3.3",
+    "@testing-library/jest-dom": "6.10.0",
+    "@testing-library/react": "16.3.3",
+    "@testing-library/user-event": "14.6.8",
+    "@types/node": "20",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "@vitejs/plugin-react": "6.1.2",
+    "jsdom": "27.4.0",
+    "tailwindcss": "4.3.3",
+    "typescript": "5.9.3",
+    "vite": "8.3.5",
+    "vitest": "4.1.12"
+  }
+}
