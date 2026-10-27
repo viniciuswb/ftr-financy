@@ -1,5 +1,6 @@
 import { prisma } from "../src/lib/prisma.js";
 import { hashPassword } from "../src/utils/hash.js";
+import { shiftDemoDates } from "./demo-dates.js";
 
 const DEMO_EMAIL = "conta@teste.com";
 
@@ -46,11 +47,13 @@ async function main() {
     categoryIds.set(category.title, created.id);
   }
 
-  for (const { category, date, ...transaction } of transactions) {
+  // Fixed sample dates are shifted so the newest transaction is today (demo data stays in the current month).
+  const dates = shiftDemoDates(transactions.map((t) => t.date), new Date());
+  for (const [index, { category, ...transaction }] of transactions.entries()) {
     await prisma.transaction.create({
       data: {
         ...transaction,
-        date: new Date(`${date}T00:00:00.000Z`),
+        date: new Date(`${dates[index]}T00:00:00.000Z`),
         userId: user.id,
         categoryId: categoryIds.get(category)!,
       },

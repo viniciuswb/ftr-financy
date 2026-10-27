@@ -46,7 +46,7 @@ The API runs at **http://localhost:4000/graphql**. Opening it in a browser shows
 
 #### Demo account
 
-After `npm run db:seed`: **conta@teste.com** / **12345678**, with 8 categories and 9 transactions. Running the seed again resets that account's data.
+After `npm run db:seed`: **conta@teste.com** / **12345678**, with 8 categories and 9 transactions placed in the current month (the newest is dated the day the seed runs). Running the seed again resets that account's data.
 
 ## Scripts
 
